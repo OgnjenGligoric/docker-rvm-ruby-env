@@ -12,12 +12,13 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-RUN gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys \
-    409B6B1796C275462A1703113804BB82D39DC0E3 \
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 \
     && curl -sSL https://get.rvm.io | bash -s stable
 
 ENV PATH="/usr/local/rvm/bin:/usr/local/rvm/rubies:/usr/local/rvm/gems:${PATH}"
-RUN echo 'source /usr/local/rvm/scripts/rvm' >> /etc/profile.d/rvm.sh
+
+RUN echo 'source /usr/local/rvm/scripts/rvm' >> /etc/profile.d/rvm.sh \
+    && source /usr/local/rvm/scripts/rvm
 
 RUN /bin/bash -l -c "rvm install 2.3 --latest && \
                      rvm install 2.4 --latest && \
@@ -29,7 +30,7 @@ RUN /bin/bash -l -c "rvm install 2.3 --latest && \
                      rvm install 3.2 --latest && \
                      rvm install 3.3 --latest && \
                      rvm cleanup"
-                     
+
 RUN /bin/bash -l -c "rvm use 3.3 --default"
 
 RUN /bin/bash -l -c "ruby -v && gem -v && rvm list"
