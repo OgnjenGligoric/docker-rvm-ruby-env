@@ -28,6 +28,7 @@ RUN curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3B4FE6AC
     apt-get update && \
     apt-get install -y --no-install-recommends libssl1.0-dev  libreadline-dev zlib1g-dev
 
+# older versions
 RUN rvm install ruby-2.4 --with-openssl-dir=/usr/local/rvm/usr
 RUN rvm install ruby-2.5 --with-openssl-dir=/usr/local/rvm/usr
 RUN rvm install ruby-2.6 --with-openssl-dir=/usr/local/rvm/usr
@@ -43,5 +44,4 @@ RUN ruby_version=$(grep -oP "ruby '\K[0-9]+\.[0-9]+" Gemfile) && \
     gem install bundler && \
     bundle install
 
-EXPOSE 4567
-CMD ["bash", "-lc","ruby app.rb"]
+CMD ["bash", "-lc", "bundle exec ruby app.rb -o 0.0.0.0"]
