@@ -44,4 +44,9 @@ RUN ruby_version=$(grep -oP "ruby '\K[0-9]+\.[0-9]+" Gemfile) && \
     gem install bundler && \
     bundle install
 
+COPY verify_rubies.sh .
+RUN apt-get update && apt-get install -y dos2unix
+RUN dos2unix /app/verify_rubies.sh
+RUN chmod +x /app/verify_rubies.sh
+
 CMD ["bash", "-lc", "bundle exec ruby app.rb -o 0.0.0.0"]
