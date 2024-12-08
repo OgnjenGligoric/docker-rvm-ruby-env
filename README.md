@@ -2,14 +2,25 @@
 
 Docker image that provides a comprehensive and standardized environment for running Ruby applications.
 
-# Setup
+# Setup for verification
 
-* `docker build -t <your-image-name>`
-* `docker run -p 4567:4567 <your-image-name>`
-* If your app is running on other address than : 0.0.0.0 :
-  * Than you run the container with this command:
-    * `docker run <local-address>:<container-app-port>:<localhost-port> <image-name>`
-    * `docker run -p 8080:4567 <image-name>`
+* `docker build -t <your-image-name> .`
+* `docker run <your-image-name>`
+
+![1733666800144](images/README/1733666800144.png)
+
+## Possibility to run specific app
+
+* Uncomment last command in Dockerfile. Toggle between these two:
+  ![1733666868429](images/README/1733666868429.png)
+* in `ruby-app` directory postition your Ruby project.
+* Run following commands.
+* `docker build -t <your-image-name> .`
+* `docker run <your-image-name>`
+* If you want to override ports or host address than you run the container with this command:
+
+  * `docker run <local-address>:<container-app-port>:<localhost-port> <image-name>`
+  * `docker run -p 8080:4567 <image-name>`
 
 ## Demonstration
 
