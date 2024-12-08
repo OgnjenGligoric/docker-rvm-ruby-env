@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
     branches:
-      - main
+        - main
 
 jobs:
   test:
@@ -16,18 +16,5 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Use caching for Docker layers
-    - name: Cache Docker layers
-      uses: actions/cache@v3
-      with:
-        path: |
-          /tmp/.buildx-cache
-        key: ${{ runner.os }}-docker-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-docker-
-
     - name: Build Docker image
-      run: |
-        docker build --cache-from type=local,src=/tmp/.buildx-cache \
-                     --cache-to type=local,dest=/tmp/.buildx-cache \
-                     -t ruby-multi-version .
+      run: docker build -t ruby-multi-version .
